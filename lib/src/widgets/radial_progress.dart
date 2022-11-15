@@ -9,14 +9,13 @@ class RadialPprogres extends StatefulWidget {
   final double grosorPrimario;
   final double grosorSecundario;
 
-  RadialPprogres({
-    super.key, 
-    required this.porcentaje, 
-    this.colorPrimario = Colors.blue, 
-    this.colorSecundario = Colors.grey, 
-    this.grosorPrimario = 10,
-    this.grosorSecundario = 4
-  });
+  RadialPprogres(
+      {super.key,
+      required this.porcentaje,
+      this.colorPrimario = Colors.blue,
+      this.colorSecundario = Colors.grey,
+      this.grosorPrimario = 10,
+      this.grosorSecundario = 4});
 
   @override
   State<RadialPprogres> createState() => _RadialPprogresState();
@@ -54,9 +53,9 @@ class _RadialPprogresState extends State<RadialPprogres> with SingleTickerProvid
           height: double.infinity,
           child: CustomPaint(
             painter: _MiRadialProgress(
-              (widget.porcentaje - diferenciaAnimar) + (diferenciaAnimar * controller.value), 
-              widget.colorPrimario, 
-              widget.colorSecundario, 
+              (widget.porcentaje - diferenciaAnimar) + (diferenciaAnimar * controller.value),
+              widget.colorPrimario,
+              widget.colorSecundario,
               widget.grosorPrimario,
               widget.grosorSecundario,
             ),
@@ -77,6 +76,12 @@ class _MiRadialProgress extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    final rect = Rect.fromCircle(center: const Offset(0, 0), radius: 180);
+    const gradiente = LinearGradient(colors: [
+      Color(0xffC012FF),
+      Color(0xff6D05E8),
+      Colors.red,
+    ]);
     // Circulo completo
     final paint = Paint()
       ..strokeWidth = grosorSecundario
@@ -92,7 +97,8 @@ class _MiRadialProgress extends CustomPainter {
     final paintArco = Paint()
       ..strokeWidth = grosorPrimario
       ..strokeCap = StrokeCap.round
-      ..color = colorPrimario
+      ..shader = gradiente.createShader(rect)
+      // ..color = colorPrimario
       ..style = PaintingStyle.stroke;
 
     // Parte que se va ir llenando
