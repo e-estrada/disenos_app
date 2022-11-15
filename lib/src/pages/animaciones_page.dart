@@ -27,6 +27,7 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
   late Animation<double> rotacion;
   late Animation<double> opacidad;
   late Animation<double> moverDerecha;
+  late Animation<double> escalar;
 
   @override
   void initState() {
@@ -40,8 +41,13 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
       CurvedAnimation(parent: controller, curve: Curves.easeOut)
     );
 
+    escalar = Tween(begin: 0.0, end: 2.0).animate(
+      CurvedAnimation(parent: controller, curve: Curves.easeOut)
+    );
+
     controller.addListener(() {
       if (controller.status == AnimationStatus.completed) {
+        // controller.repeat();
         // controller.reverse();
         controller.reset();
       }
@@ -69,7 +75,10 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
             angle: rotacion.value, 
             child: Opacity(
               opacity: opacidad.value, 
-              child: childRectangulo
+              child: Transform.scale(
+                scale: escalar.value,
+                child: childRectangulo
+              )
             )
           )
         );
