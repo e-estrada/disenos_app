@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
-
 class RadialPprogres extends StatefulWidget {
   double porcentaje;
 
@@ -11,18 +10,43 @@ class RadialPprogres extends StatefulWidget {
   State<RadialPprogres> createState() => _RadialPprogresState();
 }
 
+class _RadialPprogresState extends State<RadialPprogres> with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late double porcentajeAnterior;
 
-class _RadialPprogresState extends State<RadialPprogres> {
+  @override
+  void initState() {
+    porcentajeAnterior = widget.porcentaje;
+    controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      width: double.infinity,
-      height: double.infinity,
-      child: CustomPaint(
-        painter: _MiRadialProgress(widget.porcentaje),
-      ),
+    controller.forward(from: 0.0);
+    final diferenciaAnimar = widget.porcentaje - porcentajeAnterior;
+    porcentajeAnterior = widget.porcentaje;
+
+    return AnimatedBuilder(
+      animation: controller, 
+      builder: (context, child) {
+        return Container(
+          padding: const EdgeInsets.all(10),
+          width: double.infinity,
+          height: double.infinity,
+          child: CustomPaint(
+            painter: _MiRadialProgress((widget.porcentaje - diferenciaAnimar) + (diferenciaAnimar * controller.value)),
+          ),
+        );
+      },
     );
+    
   }
 }
 
