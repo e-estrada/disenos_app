@@ -18,12 +18,35 @@ class CuadradoAnimado extends StatefulWidget {
   State<CuadradoAnimado> createState() => _CuadradoAnimadoState();
 }
 
-class _CuadradoAnimadoState extends State<CuadradoAnimado> {
+class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProviderStateMixin {
   late AnimationController controller;
+  //Animaciones
+  late Animation<double> moverDerecha;
+  late Animation<double> moverArriba;
+  late Animation<double> moverIzquierda;
+  late Animation<double> moverAbajo;
 
   @override
   void initState() {
     super.initState();
+    // Inicializar todo
+    controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 4500));
+    
+    moverDerecha =
+        Tween(begin: 0.0, end: 100.0).animate(CurvedAnimation(parent: controller, curve: const Interval(0, 0.25, curve: Curves.bounceOut)));
+    moverArriba =
+        Tween(begin: 0.0, end: -100.0).animate(CurvedAnimation(parent: controller, curve: const Interval(0.25, 0.50, curve: Curves.bounceOut)));
+
+    moverIzquierda =
+        Tween(begin: 0.0, end: -100.0).animate(CurvedAnimation(parent: controller, curve: const Interval(0.50, 0.75, curve: Curves.bounceOut)));
+    moverAbajo =
+        Tween(begin: 0.0, end: 100.0).animate(CurvedAnimation(parent: controller, curve: const Interval(0.75, 1.00, curve: Curves.bounceOut)));
+
+    controller.addListener(() {
+      if (controller.status == AnimationStatus.completed) {
+        controller.reset();
+      }
+    });
   }
 
   @override
@@ -34,7 +57,17 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> {
 
   @override
   Widget build(BuildContext context) {
-    return _Rectangulo();
+    controller.forward();
+    return AnimatedBuilder(
+      animation: controller,
+      child: _Rectangulo(),
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(moverDerecha.value + moverIzquierda.value, moverArriba.value + moverAbajo.value),
+          child: child,
+        );
+      },
+    );
   }
 }
 

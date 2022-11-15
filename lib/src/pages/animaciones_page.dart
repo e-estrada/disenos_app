@@ -1,4 +1,4 @@
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
@@ -34,7 +34,7 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
   void initState() {
     controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 4000));
 
-    rotacion = Tween(begin: 0.0, end: 2.0 * Math.pi).animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
+    rotacion = Tween(begin: 0.0, end: 2.0 * math.pi).animate(CurvedAnimation(parent: controller, curve: Curves.easeOut));
 
     opacidad = Tween(begin: 0.1, end: 1.0).animate(CurvedAnimation(parent: controller, curve: const Interval(0, 0.25, curve: Curves.easeOut)));
     opacidadOut = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: controller, curve: const Interval(0.75, 1.0, curve: Curves.easeOut)));
