@@ -1,10 +1,22 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class RadialPprogres extends StatefulWidget {
   double porcentaje;
+  final Color colorPrimario;
+  final Color colorSecundario;
+  final double grosorPrimario;
+  final double grosorSecundario;
 
-  RadialPprogres({super.key, required this.porcentaje});
+  RadialPprogres({
+    super.key, 
+    required this.porcentaje, 
+    this.colorPrimario = Colors.blue, 
+    this.colorSecundario = Colors.grey, 
+    this.grosorPrimario = 10,
+    this.grosorSecundario = 4
+  });
 
   @override
   State<RadialPprogres> createState() => _RadialPprogresState();
@@ -34,32 +46,41 @@ class _RadialPprogresState extends State<RadialPprogres> with SingleTickerProvid
     porcentajeAnterior = widget.porcentaje;
 
     return AnimatedBuilder(
-      animation: controller, 
+      animation: controller,
       builder: (context, child) {
         return Container(
           padding: const EdgeInsets.all(10),
           width: double.infinity,
           height: double.infinity,
           child: CustomPaint(
-            painter: _MiRadialProgress((widget.porcentaje - diferenciaAnimar) + (diferenciaAnimar * controller.value)),
+            painter: _MiRadialProgress(
+              (widget.porcentaje - diferenciaAnimar) + (diferenciaAnimar * controller.value), 
+              widget.colorPrimario, 
+              widget.colorSecundario, 
+              widget.grosorPrimario,
+              widget.grosorSecundario,
+            ),
           ),
         );
       },
     );
-    
   }
 }
 
 class _MiRadialProgress extends CustomPainter {
   double porcentaje;
-  _MiRadialProgress(this.porcentaje);
+  final Color colorPrimario;
+  final Color colorSecundario;
+  final double grosorPrimario;
+  final double grosorSecundario;
+  _MiRadialProgress(this.porcentaje, this.colorPrimario, this.colorSecundario, this.grosorPrimario, this.grosorSecundario);
 
   @override
   void paint(Canvas canvas, Size size) {
     // Circulo completo
     final paint = Paint()
-      ..strokeWidth = 4
-      ..color = Colors.grey
+      ..strokeWidth = grosorSecundario
+      ..color = colorSecundario
       ..style = PaintingStyle.stroke;
 
     final Offset center = Offset(size.width * 0.5, size.height / 2);
@@ -69,8 +90,8 @@ class _MiRadialProgress extends CustomPainter {
 
     // Arco
     final paintArco = Paint()
-      ..strokeWidth = 10
-      ..color = Colors.orange
+      ..strokeWidth = grosorPrimario
+      ..color = colorPrimario
       ..style = PaintingStyle.stroke;
 
     // Parte que se va ir llenando
