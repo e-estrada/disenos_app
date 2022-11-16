@@ -7,12 +7,17 @@ class Slideshow extends StatelessWidget {
   final bool indicadoresArriba;
   final Color colorPrimario;
   final Color colorSecundario;
+  final double bulletPrimario;
+  final double bulletSecundario;
+  
   const Slideshow({
     super.key,
     required this.slides,
     this.indicadoresArriba = false,
     this.colorPrimario = Colors.blue,
-    this.colorSecundario = Colors.grey,
+    this.colorSecundario = Colors.grey, 
+    this.bulletPrimario = 12.0,
+    this.bulletSecundario = 12.0,
   });
 
   @override
@@ -26,6 +31,9 @@ class Slideshow extends StatelessWidget {
             builder: (BuildContext context) {
               Provider.of<_SlideshowModel>(context).colorPrimario = colorPrimario;
               Provider.of<_SlideshowModel>(context).colorSecundario = colorSecundario;
+
+              Provider.of<_SlideshowModel>(context).bulletPrimario = this.bulletPrimario;
+              Provider.of<_SlideshowModel>(context).bulletSecundario = this.bulletSecundario;
               
               return _CrearEstructuraSlideshow(indicadoresArriba: indicadoresArriba, slides: slides);
             },  
@@ -82,14 +90,22 @@ class _Dot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ssModel = Provider.of<_SlideshowModel>(context);
+    double tamano;
+    Color color;
+
+    if (ssModel.currentPage >= index - 0.5 && ssModel.currentPage < index + 0.5) {
+      tamano = ssModel.bulletPrimario;
+      color = ssModel.colorPrimario;
+    } else {
+      tamano = ssModel.bulletSecundario;
+      color = ssModel.colorSecundario;
+    }
     return AnimatedContainer(
-      width: 12,
-      height: 12,
+      width: tamano,
+      height: tamano,
       margin: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
-        color: (ssModel.currentPage >= index - 0.5 && ssModel.currentPage < index + 0.5)
-            ? ssModel.colorPrimario
-            : ssModel.colorSecundario,
+        color: color,
         shape: BoxShape.circle,
       ),
       duration: const Duration(milliseconds: 200),
@@ -153,6 +169,8 @@ class _SlideshowModel extends ChangeNotifier {
   double _currentPage = 0;
   Color _colorPrimario = Colors.blue;
   Color _colorSecundario = Colors.grey;
+  double _bulletPrimario = 12;
+  double _bulletSecundario = 12;
 
   double get currentPage => _currentPage;
 
@@ -173,5 +191,15 @@ class _SlideshowModel extends ChangeNotifier {
   set colorSecundario(Color color) {
     _colorSecundario = color;
     // notifyListeners();
+  }
+
+  double get bulletPrimario => this._bulletPrimario;
+  set bulletPrimario(double tamano) {
+    this._bulletPrimario = tamano;
+  }
+
+  double get bulletSecundario => this._bulletSecundario;
+  set bulletSecundario(double tamano) {
+    this._bulletSecundario = tamano;
   }
 }
