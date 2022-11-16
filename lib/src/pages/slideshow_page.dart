@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:disenos_app/src/models/slider_model.dart';
 
 class SlideShowPage extends StatelessWidget {
   const SlideShowPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            Expanded(
-              child: _Slides()
-            ), 
-            _Dots(),
-          ],
+    return ChangeNotifierProvider(
+      create: (_) => SliderModel(),
+      child: Scaffold(
+        body: Center(
+          child: Column(
+            children: [
+              Expanded(child: _Slides()),
+              _Dots(),
+            ],
+          ),
         ),
       ),
     );
@@ -46,11 +49,15 @@ class _Dot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pageViewIndex = Provider.of<SliderModel>(context).currentPage;
     return Container(
       width: 12,
       height: 12,
       margin: const EdgeInsets.symmetric(horizontal: 5),
-      decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
+      decoration: BoxDecoration(
+        color: (pageViewIndex == index) ? Colors.blue : Colors.grey,
+        shape: BoxShape.circle,
+      ),
     );
   }
 }
@@ -68,6 +75,7 @@ class _SlidesState extends State<_Slides> {
     super.initState();
     pageViewController.addListener(() {
       print(pageViewController.page);
+      Provider.of<SliderModel>(context, listen: false).currentPage = pageViewController.page!;
     });
   }
 
