@@ -12,31 +12,13 @@ class PinteresMenu extends StatelessWidget {
   final Color backgroundColor;
   final Color activeColor;
   final Color inactiveColor;
+  final List<PinteresButton> items;
 
-  final List<PinteresButton> items = [
-    PinteresButton(
-        icon: Icons.pie_chart,
-        onPressed: () {
-          print('Icon pie_chart');
-        }),
-    PinteresButton(
-        icon: Icons.search,
-        onPressed: () {
-          print('Icon search');
-        }),
-    PinteresButton(
-        icon: Icons.notifications,
-        onPressed: () {
-          print('Icon notifications');
-        }),
-    PinteresButton(
-        icon: Icons.supervised_user_circle,
-        onPressed: () {
-          print('Icon supervised_user_circle');
-        }),
-  ];
-  PinteresMenu(
-      {super.key, required this.mostrar, this.backgroundColor = Colors.white, this.activeColor = Colors.black, this.inactiveColor = Colors.blueGrey});
+  // final List<PinteresButton> items = [
+  
+  // ];
+  const PinteresMenu(
+      {super.key, required this.mostrar, this.backgroundColor = Colors.white, this.activeColor = Colors.black, this.inactiveColor = Colors.blueGrey, required this.items});
 
   @override
   Widget build(BuildContext context) {
