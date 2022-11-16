@@ -10,14 +10,13 @@ class PinterestPage extends StatelessWidget {
       // body: PinteresMenu(),
       body: Stack(
         children: [
-          PinteresGrid(),
+          const PinteresGrid(),
           _PinterestMenuLocation(),
         ],
       ),
     );
   }
 }
-
 
 class _PinterestMenuLocation extends StatelessWidget {
   @override
@@ -34,14 +33,42 @@ class _PinterestMenuLocation extends StatelessWidget {
   }
 }
 
-class PinteresGrid extends StatelessWidget {
-  final List items = List.generate(200, (index) => index);
+class PinteresGrid extends StatefulWidget {
+  const PinteresGrid({super.key});
 
-  PinteresGrid({super.key});
+  @override
+  State<PinteresGrid> createState() => _PinteresGridState();
+}
+
+class _PinteresGridState extends State<PinteresGrid> {
+  final List items = List.generate(200, (index) => index);
+  ScrollController controller = ScrollController();
+  double scrollAnterior = 0;
+
+  @override
+  void initState() {
+    controller.addListener(() {
+      if (controller.offset > scrollAnterior) {
+        print('Ocultar menu');
+      } else {
+        print('Mostrar menu');
+      }
+
+      scrollAnterior = controller.offset;
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return StaggeredGridView.countBuilder(
+      controller: controller,
       crossAxisCount: 4,
       itemCount: items.length,
       itemBuilder: (BuildContext context, int index) => _PinteresItem(
