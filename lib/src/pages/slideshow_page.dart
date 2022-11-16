@@ -9,12 +9,7 @@ class SlideShowPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
-          children: [
-            Expanded(
-              child: _Slides()
-            ),
-            _Dots()
-          ],
+          children: [Expanded(child: _Slides()), _Dots()],
         ),
       ),
     );
@@ -51,11 +46,33 @@ class _Dot extends StatelessWidget {
   }
 }
 
-class _Slides extends StatelessWidget {
+class _Slides extends StatefulWidget {
+  @override
+  State<_Slides> createState() => _SlidesState();
+}
+
+class _SlidesState extends State<_Slides> {
+  final pageViewController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+    pageViewController.addListener(() {
+      print(pageViewController.page);
+    });
+  }
+
+  @override
+  void dispose() {
+    pageViewController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: PageView(
+        controller: pageViewController,
         children: const [
           _Slide('assets/svgs/slide-1.svg'),
           _Slide('assets/svgs/slide-2.svg'),
