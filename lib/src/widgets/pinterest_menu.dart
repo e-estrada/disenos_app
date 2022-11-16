@@ -8,10 +8,26 @@ class PinteresButton {
 
 class PinteresMenu extends StatelessWidget {
   final List<PinteresButton> items = [
-    PinteresButton(icon: Icons.pie_chart, onPressed: () { print('Icon pie_chart'); }),
-    PinteresButton(icon: Icons.search, onPressed: () { print('Icon search'); }),
-    PinteresButton(icon: Icons.notifications, onPressed: () { print('Icon notifications'); }),
-    PinteresButton(icon: Icons.supervised_user_circle, onPressed: () { print('Icon supervised_user_circle'); }),
+    PinteresButton(
+        icon: Icons.pie_chart,
+        onPressed: () {
+          print('Icon pie_chart');
+        }),
+    PinteresButton(
+        icon: Icons.search,
+        onPressed: () {
+          print('Icon search');
+        }),
+    PinteresButton(
+        icon: Icons.notifications,
+        onPressed: () {
+          print('Icon notifications');
+        }),
+    PinteresButton(
+        icon: Icons.supervised_user_circle,
+        onPressed: () {
+          print('Icon supervised_user_circle');
+        }),
   ];
   PinteresMenu({super.key});
 
@@ -19,8 +35,40 @@ class PinteresMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        child: Text('Hola desde el menú'),
+        width: 250,
+        height: 60,
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(100)),
+            boxShadow: [BoxShadow(color: Colors.black38, blurRadius: 10, spreadRadius: -5)]),
+        child: _MenuItem(items),
       ),
+    );
+  }
+}
+
+class _MenuItem extends StatelessWidget {
+  final List<PinteresButton> menuItems;
+  const _MenuItem(this.menuItems);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: List.generate(menuItems.length, (index) => _PinteresMenuButton(index, menuItems[index])),
+    );
+  }
+}
+
+class _PinteresMenuButton extends StatelessWidget {
+  final int index;
+  final PinteresButton item;
+  const _PinteresMenuButton(this.index, this.item);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Icon(item.icon),
     );
   }
 }
