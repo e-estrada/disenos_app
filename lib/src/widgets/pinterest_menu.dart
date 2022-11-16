@@ -8,6 +8,8 @@ class PinteresButton {
 }
 
 class PinteresMenu extends StatelessWidget {
+  final bool mostrar;
+
   final List<PinteresButton> items = [
     PinteresButton(
         icon: Icons.pie_chart,
@@ -30,13 +32,19 @@ class PinteresMenu extends StatelessWidget {
           print('Icon supervised_user_circle');
         }),
   ];
-  PinteresMenu({super.key});
+  PinteresMenu({super.key, required this.mostrar});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => _MenuModel(), 
-      child: _PinterestMenuBackground(child: _MenuItem(items)),
+      create: (_) => _MenuModel(),
+      child: AnimatedOpacity(
+        duration: const Duration(milliseconds: 250),
+        opacity: (mostrar) ? 1 : 0,
+        child: _PinterestMenuBackground(
+          child: _MenuItem(items)
+        ),
+      ),
     );
   }
 }
