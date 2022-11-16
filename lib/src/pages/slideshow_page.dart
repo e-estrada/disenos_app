@@ -9,7 +9,12 @@ class SlideShowPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
-          children: [Expanded(child: _Slides()), _Dots()],
+          children: [
+            Expanded(
+              child: _Slides()
+            ), 
+            _Dots(),
+          ],
         ),
       ),
     );
@@ -24,10 +29,10 @@ class _Dots extends StatelessWidget {
       height: 70,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _Dot(),
-          _Dot(),
-          _Dot(),
+        children: const [
+          _Dot(0),
+          _Dot(1),
+          _Dot(2),
         ],
       ),
     );
@@ -35,6 +40,10 @@ class _Dots extends StatelessWidget {
 }
 
 class _Dot extends StatelessWidget {
+  final int index;
+
+  const _Dot(this.index);
+
   @override
   Widget build(BuildContext context) {
     return Container(
