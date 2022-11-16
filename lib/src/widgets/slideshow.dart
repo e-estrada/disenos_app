@@ -32,8 +32,8 @@ class Slideshow extends StatelessWidget {
               Provider.of<_SlideshowModel>(context).colorPrimario = colorPrimario;
               Provider.of<_SlideshowModel>(context).colorSecundario = colorSecundario;
 
-              Provider.of<_SlideshowModel>(context).bulletPrimario = this.bulletPrimario;
-              Provider.of<_SlideshowModel>(context).bulletSecundario = this.bulletSecundario;
+              Provider.of<_SlideshowModel>(context).bulletPrimario = bulletPrimario;
+              Provider.of<_SlideshowModel>(context).bulletSecundario = bulletSecundario;
               
               return _CrearEstructuraSlideshow(indicadoresArriba: indicadoresArriba, slides: slides);
             },  
@@ -71,7 +71,7 @@ class _Dots extends StatelessWidget {
   const _Dots(this.totalSlides);
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 70,
       child: Row(
@@ -141,11 +141,9 @@ class _SlidesState extends State<_Slides> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: PageView(
-        controller: pageViewController,
-        children: widget.slides.map((slide) => _Slide(slide)).toList(),
-      ),
+    return PageView(
+      controller: pageViewController,
+      children: widget.slides.map((slide) => _Slide(slide)).toList(),
     );
   }
 }
@@ -167,39 +165,15 @@ class _Slide extends StatelessWidget {
 
 class _SlideshowModel extends ChangeNotifier {
   double _currentPage = 0;
-  Color _colorPrimario = Colors.blue;
-  Color _colorSecundario = Colors.grey;
-  double _bulletPrimario = 12;
-  double _bulletSecundario = 12;
+  Color colorPrimario = Colors.blue;
+  Color colorSecundario = Colors.grey;
+  double bulletPrimario = 12;
+  double bulletSecundario = 12;
 
   double get currentPage => _currentPage;
 
   set currentPage(double pag) {
     _currentPage = pag;
     notifyListeners();
-  }
-
-  Color get colorPrimario => _colorPrimario;
-
-  set colorPrimario(Color color) {
-    _colorPrimario = color;
-    // notifyListeners();
-  }
-
-  Color get colorSecundario => _colorSecundario;
-
-  set colorSecundario(Color color) {
-    _colorSecundario = color;
-    // notifyListeners();
-  }
-
-  double get bulletPrimario => this._bulletPrimario;
-  set bulletPrimario(double tamano) {
-    this._bulletPrimario = tamano;
-  }
-
-  double get bulletSecundario => this._bulletSecundario;
-  set bulletSecundario(double tamano) {
-    this._bulletSecundario = tamano;
   }
 }

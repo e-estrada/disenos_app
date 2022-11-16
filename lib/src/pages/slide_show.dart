@@ -9,20 +9,36 @@ class SlideshowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Slideshow(
-        // indicadoresArriba: false,
-        bulletPrimario: 15,
-        bulletSecundario: 12,
-        colorPrimario: Colors.red,
-        colorSecundario: Colors.purple,
-        slides: <Widget>[
-          SvgPicture.asset('assets/svgs/slide-1.svg'),
-          SvgPicture.asset('assets/svgs/slide-2.svg'),
-          SvgPicture.asset('assets/svgs/slide-3.svg'),
-          SvgPicture.asset('assets/svgs/slide-4.svg'),
-          SvgPicture.asset('assets/svgs/slide-5.svg'),
+      body: Column(
+        children: const [
+          Expanded(child: MiSlideShow()),
+          Expanded(child: MiSlideShow()),
         ],
-      ),
+      )
+    );
+  }
+}
+
+class MiSlideShow extends StatelessWidget {
+  const MiSlideShow({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Slideshow(
+      // indicadoresArriba: false,
+      bulletPrimario: 15,
+      bulletSecundario: 12,
+      colorPrimario: Colors.orange,
+      colorSecundario: Colors.green,
+      slides: <Widget>[
+        SvgPicture.asset('assets/svgs/slide-1.svg'),
+        SvgPicture.asset('assets/svgs/slide-2.svg'),
+        SvgPicture.asset('assets/svgs/slide-3.svg'),
+        SvgPicture.asset('assets/svgs/slide-4.svg'),
+        SvgPicture.asset('assets/svgs/slide-5.svg'),
+      ],
     );
   }
 }
