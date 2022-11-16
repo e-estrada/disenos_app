@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HeaderCuadrado extends StatelessWidget {
   const HeaderCuadrado({super.key});
@@ -188,7 +189,6 @@ class _HeaderCurvoPainter extends CustomPainter {
   }
 }
 
-
 class HeaderWaves extends StatelessWidget {
   const HeaderWaves({super.key});
 
@@ -229,7 +229,6 @@ class _HeaderWavesPainter extends CustomPainter {
     return true;
   }
 }
-
 
 class HeaderWaveGradient extends StatelessWidget {
   const HeaderWaveGradient({super.key});
@@ -284,10 +283,66 @@ class _HeaderWaveGradientPainter extends CustomPainter {
   }
 }
 
-
-
 class IconHeader extends StatelessWidget {
   const IconHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final Color colorBlanco = Colors.white.withOpacity(0.7);
+    return Stack(
+      children: [
+        
+        
+        const _IconHeaderBackground(),
+
+
+        Positioned(
+            top: -50,
+            left: -70,
+            child: FaIcon(
+              FontAwesomeIcons.plus,
+              size: 250,
+              color: colorBlanco,
+            )),
+        
+        Column(
+          children: [
+            const SizedBox(height: 80, width: double.infinity),
+
+            Text(
+              'Haz solicitado',
+              style: TextStyle(fontSize: 20, color: colorBlanco),
+            ),
+
+
+            const SizedBox(height: 20),
+
+
+            Text(
+              'Asistencia',
+              style: TextStyle(fontSize: 25, color: colorBlanco, fontWeight: FontWeight.bold),
+            ),
+
+            const SizedBox(height: 20),
+
+            const FaIcon(
+              FontAwesomeIcons.plus,
+              size: 80,
+              color: Colors.white,
+            ),
+
+          ],
+        )
+      ],
+    );
+  }
+}
+
+class _IconHeaderBackground extends StatelessWidget {
+  const _IconHeaderBackground({
+    Key? key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
