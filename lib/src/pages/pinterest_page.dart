@@ -1,3 +1,4 @@
+import 'package:disenos_app/src/widgets/pinterest_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -8,7 +9,7 @@ class PinterestPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: PinteresGrid(),
+        child: PinteresMenu(),
       ),
     );
   }
@@ -40,7 +41,7 @@ class _PinteresItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           color: Colors.blue,
           borderRadius: BorderRadius.circular(30)
