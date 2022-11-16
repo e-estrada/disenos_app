@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:disenos_app/src/models/slider_model.dart';
 
-class SlideShowPage extends StatelessWidget {
-  const SlideShowPage({super.key});
+import 'package:disenos_app/src/models/slider_model.dart';
+import 'package:flutter_svg/svg.dart';
+
+
+class Slideshow extends StatelessWidget {
+  const Slideshow({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => SliderModel(),
-      child: Scaffold(
-        body: Center(
+      child: Center(
           child: Column(
             children: [
               Expanded(child: _Slides()),
@@ -19,10 +20,10 @@ class SlideShowPage extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 }
+
 
 class _Dots extends StatelessWidget {
   @override
@@ -55,10 +56,10 @@ class _Dot extends StatelessWidget {
       height: 12,
       margin: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
-        color: (pageViewIndex >= index - 0.5 && pageViewIndex < index + 0.5) 
-        ? Colors.blue : Colors.grey,
+        color: (pageViewIndex >= index - 0.5 && pageViewIndex < index + 0.5) ? Colors.blue : Colors.grey,
         shape: BoxShape.circle,
-      ), duration: const Duration(milliseconds: 200),
+      ),
+      duration: const Duration(milliseconds: 200),
     );
   }
 }
@@ -75,7 +76,6 @@ class _SlidesState extends State<_Slides> {
   void initState() {
     super.initState();
     pageViewController.addListener(() {
-      print(pageViewController.page);
       Provider.of<SliderModel>(context, listen: false).currentPage = pageViewController.page!;
     });
   }
