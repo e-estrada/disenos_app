@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:disenos_app/src/widgets/icon_header.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:disenos_app/src/widgets/icon_header.dart';
+import 'package:disenos_app/src/widgets/boton_gordo.dart';
 
 
 class EmergencyPage extends StatelessWidget {
@@ -9,13 +10,24 @@ class EmergencyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: IconHeader(
-        titulo: 'Asistencia Médica',
-        subTitulo: 'Haz solicitado',
-        icon: FontAwesomeIcons.plus,
-        color1: Color(0xff526BF6),
-        color2: Color(0xff67ACF2),
+      body: Center(
+        child: BotonGordo(),
       ),
    );
+  }
+}
+
+class PageHeader extends StatelessWidget {
+  const PageHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const IconHeader(
+      titulo: 'Asistencia Médica',
+      subTitulo: 'Haz solicitado',
+      icon: FontAwesomeIcons.plus,
+      color1: Color(0xff526BF6),
+      color2: Color(0xff67ACF2),
+    );
   }
 }
