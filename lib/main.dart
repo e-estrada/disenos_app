@@ -1,24 +1,27 @@
-
-
-// import 'package:disenos_app/src/pages/graficas_circulares_page.dart';
-// import 'package:disenos_app/src/labs/slideshow_page.dart';
-// import 'package:disenos_app/src/pages/emergency_page.dart';
-import 'package:disenos_app/src/pages/sliver_list_page.dart';
-// import 'package:disenos_app/src/pages/pinterest_page.dart';
-// import 'package:disenos_app/src/pages/slide_show.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(const MyApp());
+import 'package:disenos_app/src/pages/launcher_page.dart';
+import 'package:disenos_app/src/theme/theme.dart';
+
+void main() => runApp(
+  ChangeNotifierProvider(
+    create: (context) => ThemeChanger(2),
+    child: const MyApp(),
+  )
+);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    final currentTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Diseños App',
-      home: SliverListPage(),
+      home: const LauncherPage(),
+      theme: currentTheme,
     );
   }
 }

@@ -232,7 +232,8 @@ class _HeaderWavesPainter extends CustomPainter {
 
 
 class HeaderWaveGradient extends StatelessWidget {
-  const HeaderWaveGradient({super.key});
+  final Color color;
+  const HeaderWaveGradient({super.key, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -240,22 +241,28 @@ class HeaderWaveGradient extends StatelessWidget {
       height: double.infinity,
       width: double.infinity,
       child: CustomPaint(
-        painter: _HeaderWaveGradientPainter(),
+        painter: _HeaderWaveGradientPainter(color),
       ),
     );
   }
 }
 
 class _HeaderWaveGradientPainter extends CustomPainter {
+  final Color color;
+
+  _HeaderWaveGradientPainter(this.color);
+
   @override
   void paint(Canvas canvas, Size size) {
     final Rect rect = Rect.fromCircle(center: const Offset(0.0, 55.0), radius: 180);
 
-    const Gradient gradiente = LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: <Color>[
-      Color(0xff6D05E8),
-      Color(0xffC012FF),
-      Color(0xff6D05FA),
-    ], stops: [
+    Gradient gradiente = LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: <Color>[
+      // color,
+      const Color(0xff6D05E8),
+      const Color(0xffC012FF),
+      // const Color(0xff6D05FA),
+      color,
+    ], stops: const [
       0.2,
       0.5,
       1.0,

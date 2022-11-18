@@ -1,4 +1,6 @@
+import 'package:disenos_app/src/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 class SliverListPage extends StatelessWidget {
@@ -29,6 +31,7 @@ class _BotonNewList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final appTheme = Provider.of<ThemeChanger>(context);
     return ButtonTheme(
       minWidth: size.width * 0.9,
       height: 100,
@@ -37,12 +40,12 @@ class _BotonNewList extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 40),
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(50))),
-          backgroundColor: const Color(0xffED6762), // background color
+          backgroundColor: (appTheme.darkTheme) ? appTheme.currentTheme.colorScheme.secondary :  const Color(0xffED6762), // background color
           textStyle: const TextStyle(fontSize: 20, fontStyle: FontStyle.italic)
         ),
-        child: const Text(
+        child: Text(
           'CREATE NEW LIST',
-          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 3),
+          style: TextStyle(color: appTheme.currentTheme.scaffoldBackgroundColor, fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 3),
         ),
         ),
     );
@@ -64,6 +67,7 @@ class _MainScroll extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
     return CustomScrollView(
       slivers: [
 
@@ -81,7 +85,7 @@ class _MainScroll extends StatelessWidget {
             maxheight: 200,
             child: Container(
               alignment: Alignment.centerLeft,
-              color: Colors.white,
+              color: appTheme.scaffoldBackgroundColor,
               child: _Titulo(),
             )
           )
@@ -162,6 +166,7 @@ class _ListaTareas extends StatelessWidget {
 class _Titulo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
     return Column(
       children: [
         
@@ -169,7 +174,13 @@ class _Titulo extends StatelessWidget {
         
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-          child: const Text('New', style: TextStyle(color: Color(0xff532128), fontSize: 50),),
+          child: Text(
+            'New', 
+            style: TextStyle(
+              color: (appTheme.darkTheme) ? Colors.grey : const Color(0xff532128), 
+              fontSize: 50
+            ),
+          ),
         ),
 
         Stack(
@@ -180,9 +191,9 @@ class _Titulo extends StatelessWidget {
             Positioned(
               bottom: 8,
               child: Container(
-                width: 120,
+                width: 150,
                 height: 8,
-                color: const Color(0xffF7CDD5),
+                color: (appTheme.darkTheme) ? Colors.grey : const Color(0xffF7CDD5),
               ),
             ),
 
@@ -207,16 +218,24 @@ class _ListItem extends StatelessWidget {
   const _ListItem(this.titulo, this.color);
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
     return Container(
       alignment: Alignment.centerLeft,
       padding: const EdgeInsets.all(30),
       height: 130,
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: color,
+        color: (appTheme.darkTheme) ? Colors.grey : color,
         borderRadius: BorderRadius.circular(30),
       ),
-      child: Text(titulo, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),),
+      child: Text(
+        titulo, 
+        style: const TextStyle(
+          color: Colors.white, 
+          fontWeight: FontWeight.bold, 
+          fontSize: 20
+        ),
+      ),
     );
   }
 }
