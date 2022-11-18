@@ -26,26 +26,35 @@ class PinterestPage extends StatelessWidget {
 class _PinterestMenuLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final widthPantalla = MediaQuery.of(context).size.width;
+    double widthPantalla = MediaQuery.of(context).size.width;
     final mostrar = Provider.of<_MenuModel>(context).mostrar;
     final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    if(widthPantalla > 500){
+      widthPantalla = widthPantalla - 300;
+    }
     return Positioned(
         bottom: 30,
         child: SizedBox(
           width: widthPantalla,
-          child: Align(
-            child: PinteresMenu(
-              mostrar: mostrar,
-              backgroundColor: appTheme.scaffoldBackgroundColor,
-              activeColor: appTheme.colorScheme.secondary,
-              // inactiveColor: Colors.green,
-              items: [
-                  PinteresButton(icon: Icons.pie_chart, onPressed: () { }),
-                  PinteresButton(icon: Icons.search, onPressed: () { }),
-                  PinteresButton(icon: Icons.notifications, onPressed: () { }),
-                  PinteresButton(icon: Icons.supervised_user_circle, onPressed: () { }),
-              ],
-            ),
+          child: Row(
+            children: [
+              const Spacer(),
+
+              PinteresMenu(
+                mostrar: mostrar,
+                backgroundColor: appTheme.scaffoldBackgroundColor,
+                activeColor: appTheme.colorScheme.secondary,
+                // inactiveColor: Colors.green,
+                items: [
+                    PinteresButton(icon: Icons.pie_chart, onPressed: () { }),
+                    PinteresButton(icon: Icons.search, onPressed: () { }),
+                    PinteresButton(icon: Icons.notifications, onPressed: () { }),
+                    PinteresButton(icon: Icons.supervised_user_circle, onPressed: () { }),
+                ],
+              ),
+
+              const Spacer(),
+            ],
           ),
         ));
   }
@@ -85,14 +94,19 @@ class _PinteresGridState extends State<PinteresGrid> {
 
   @override
   Widget build(BuildContext context) {
+    int count = 2;
+    if(MediaQuery.of(context).size.width > 500){
+      count = 3;
+    }
+
     return StaggeredGridView.countBuilder(
       controller: controller,
-      crossAxisCount: 4,
+      crossAxisCount: count,
       itemCount: items.length,
       itemBuilder: (BuildContext context, int index) => _PinteresItem(
         index: index,
       ),
-      staggeredTileBuilder: (int index) => StaggeredTile.count(2, index.isEven ? 2 : 3),
+      staggeredTileBuilder: (int index) => StaggeredTile.count(1, index.isEven ? 1 : 2),
       mainAxisSpacing: 4.0,
       crossAxisSpacing: 4.0,
     );

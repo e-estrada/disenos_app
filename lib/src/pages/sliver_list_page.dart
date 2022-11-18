@@ -139,30 +139,6 @@ class _SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
   }
 }
 
-
-class _ListaTareas extends StatelessWidget {
-
-  final items = [
-    const _ListItem( 'Orange', Color(0xffF08F66) ),
-    const _ListItem( 'Family', Color(0xffF2A38A) ),
-    const _ListItem( 'Subscriptions', Color(0xffF7CDD5) ),
-    const _ListItem( 'Books', Color(0xffFCEBAF) ),
-    const _ListItem( 'Orange', Color(0xffF08F66) ),
-    const _ListItem( 'Family', Color(0xffF2A38A) ),
-    const _ListItem( 'Subscriptions', Color(0xffF7CDD5) ),
-    const _ListItem( 'Books', Color(0xffFCEBAF) ),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (context, index) => items[index],
-    );
-  }
-}
-
-
 class _Titulo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
